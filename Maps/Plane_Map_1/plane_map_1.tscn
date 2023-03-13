@@ -1,7 +1,22 @@
-[gd_scene load_steps=2 format=3 uid="uid://gifnfq0soqwn"]
+[gd_scene load_steps=8 format=3 uid="uid://gifnfq0soqwn"]
+
+[ext_resource type="PackedScene" uid="uid://b54gkd73g8k7h" path="res://Players/FPS_Player/fps_player.tscn" id="1_hnxeu"]
+[ext_resource type="Texture2D" uid="uid://dn4eetujhfo81" path="res://CrossTexture.png" id="1_p1160"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7wj04"]
+albedo_texture = ExtResource("1_p1160")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_o3x1g"]
 size = Vector3(100, 1, 100)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_jtspc"]
+
+[sub_resource type="Sky" id="Sky_bufbk"]
+sky_material = SubResource("ProceduralSkyMaterial_jtspc")
+
+[sub_resource type="Environment" id="Environment_6qf2m"]
+background_mode = 2
+sky = SubResource("Sky_bufbk")
 
 [node name="Plane_Map_1" type="Node3D"]
 
@@ -9,9 +24,15 @@ size = Vector3(100, 1, 100)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Floor"]
 size = Vector3(100, 1, 100)
+material = SubResource("StandardMaterial3D_7wj04")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
 shape = SubResource("BoxShape3D_o3x1g")
 
 [node name="SpawnPointAir" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 22.0325, 0)
+
+[node name="FPS_Player" parent="SpawnPointAir" instance=ExtResource("1_hnxeu")]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_6qf2m")
